@@ -9,12 +9,12 @@ class Role extends Model
   //inicio
 
   protected $fillable = [
-      'name', 'slug', 'description', 'full-access',
+      'name', 'description', 'full-access',
   ];
 
-  public function users(){
-    return $this->belongsToMany('App\User')->withTimesTamps();
-  }
+  // public function users(){
+  //   return $this->belongsToMany('App\User')->withTimesTamps();
+  // }
 
   public function permissions(){
     return $this->belongsToMany('App\permisos\models\Permission')->withTimesTamps();

@@ -19,7 +19,7 @@ class permisosInfoSeeder extends Seeder
       // inicio
       //truncate tablas vaciar y reiniciamos los id para mantener integridad de registros anteriores
       DB::statement("SET foreign_key_checks=0");
-        DB::table('role_user')->truncate();
+      //  DB::table('role_user')->truncate();
         DB::table('permission_role')->truncate();
         Permission::truncate();
         Role::truncate();
@@ -45,12 +45,12 @@ class permisosInfoSeeder extends Seeder
       //creamos el rol admin
       $rolAdmin=Role::create([
         'name'=>'Admin',
-        'slug'=>'admin',
+      //  'slug'=>'admin',
         'description' => 'Administrator',
         'full-access'=>'yes'
       ]);
       //forania de admin para relacionarlo con el rol
-      $userAdmin->roles()->sync([$rolAdmin->id]);
+      //$userAdmin->roles()->sync([$rolAdmin->id]);
 
       //creando permisos( todos los del rol), y guardando sus id en un array
       $permission_test=[];
@@ -162,12 +162,12 @@ class permisosInfoSeeder extends Seeder
 
       $rolTest=Role::create([
         'name'=>'Test',
-        'slug'=>'test',
+        //'slug'=>'test',
         'description' => 'description test',
         'full-access'=>'no'
       ]);
       //enlazamos o sincronizamos el usuario con el rol
-      $userTest->roles()->sync([$rolTest->id]);
+      //$userTest->roles()->sync([$rolTest->id]);
 
     }
 

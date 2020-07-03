@@ -5,27 +5,25 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><h3>Role {{$role->id}}</h3></div>
+                <div class="card-header"><h3>Rol con identificador {{$role->id}}</h3></div>
 
                 <div class="card-body">
 
                     @include('custom.message')
 
                       <div class="form-group">
-                        <label for="name">Name</label>
-                        <input disabled type="text" class="form-control" id="name" name="name" placeholder="name" value="{!! old('name',$role->name )!!}">
+                        <label for="name">Nómbre</label>
+                        <input disabled type="text" class="form-control" id="name" name="name" placeholder="Ingrese el nombre del rol"
+                        value="{!! old('name',$role->name )!!}">
                       </div>
+
                       <div class="form-group">
-                        <label for="slug">Slug</label>
-                        <input disabled type="text" class="form-control" id="slug" name="slug" placeholder="Slug" value="{{ old('slug',$role->slug) }}" >
-                      </div>
-                      <div class="form-group">
-                        <label for="description" >Description</label>
+                        <label for="description" >Descripción</label>
                         <textarea disabled class="form-control" id="description" name="description" rows="3">{{ old('description',$role->description) }}</textarea>
                       </div>
 
                       <hr>
-                      <h3>Full access</h3>
+                      <h3>Acceso completo</h3>
                       <div  class="form-check form-check-inline">
                         <input disabled class="form-check-input" type="radio" name="full-access" id="fullaccessyes" value="yes"
                         @if ($role['full-access']=='yes')
@@ -34,7 +32,7 @@
                           checked
                         @endif
                         >
-                        <label class="form-check-label" for="fullaccessyes">Yes</label>
+                        <label class="form-check-label" for="fullaccessyes">Si</label>
                       </div>
                       <div class="form-check form-check-inline">
                         <input disabled class="form-check-input" type="radio" name="full-access" id="fullaccessno" value="no"
@@ -48,7 +46,7 @@
                       </div>
 
                       <hr>
-                      <h3>Permission List</h3>
+                      <h3>Lista de permisos</h3>
                       @foreach($permissions as $permission)
                           <div class="custom-control custom-checkbox">
                             <input disabled type="checkbox" class="custom-control-input" id="permission_{{$permission->id}}" name="permissions[]" value="{{$permission->id}}"
@@ -67,8 +65,8 @@
                           </div>
                       @endforeach
                       <hr>
-                      <a href="{{ route('role.edit',$role->id) }}" class="btn btn-primary"> Edit</a>
-                      <a href="{{ route('role.index') }}" class="btn btn-danger" >Back</a>
+                      <a href="{{ route('role.edit',$role->id) }}" class="btn btn-primary">Editar</a>
+                      <a href="{{ route('role.index') }}" class="btn btn-danger" >Regresar</a>
                 </div>
             </div>
         </div>

@@ -17,10 +17,7 @@
                         <label for="name">Name</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="name" value="{!! old('name' )!!}">
                       </div>
-                      <div class="form-group">
-                        <label for="slug">Slug</label>
-                        <input type="text" class="form-control" id="slug" name="slug" placeholder="Slug" value="{{ old('slug') }}" >
-                      </div>
+
                       <div class="form-group">
                         <label for="description" >Description</label>
                         <textarea class="form-control" id="description" name="description" rows="3">{{ old('description') }}</textarea>

@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><h3>Edit Role {{$role->id}}</h3></div>
+                <div class="card-header"><h3>Editar rol con identificador {{$role->id}}</h3></div>
                 <div class="card-body">
 
                     @include('custom.message')
@@ -14,20 +14,17 @@
                       @csrf
                       @method('PUT')
                       <div class="form-group">
-                        <label for="name">Name</label>
+                        <label for="name">Nombre</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="name" value="{!! old('name',$role->name )!!}">
                       </div>
+
                       <div class="form-group">
-                        <label for="slug">Slug</label>
-                        <input type="text" class="form-control" id="slug" name="slug" placeholder="Slug" value="{{ old('slug',$role->slug) }}" >
-                      </div>
-                      <div class="form-group">
-                        <label for="description" >Description</label>
+                        <label for="description" >Descripción</label>
                         <textarea class="form-control" id="description" name="description" rows="3">{{ old('description',$role->description) }}</textarea>
                       </div>
 
                       <hr>
-                      <h3>Full access</h3>
+                      <h3>Acceso completo</h3>
                       <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="full-access" id="fullaccessyes" value="yes"
                         @if ($role['full-access']=='yes')
@@ -50,7 +47,7 @@
                       </div>
 
                       <hr>
-                      <h3>Permission List</h3>
+                      <h3>Lista de permisos</h3>
                       @foreach($permissions as $permission)
                           <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="permission_{{$permission->id}}" name="permissions[]" value="{{$permission->id}}"
@@ -70,8 +67,8 @@
                       @endforeach
                       <hr>
 
-                      <input class="btn btn-primary" type="submit" name="" value="Save">
-                      <a class="btn btn-danger" href="{{route('role.index')}}">Back</a>
+                      <input class="btn btn-primary" type="submit" name="" value="Guardar cambios">
+                      <a class="btn btn-danger" href="{{route('role.index')}}">Regresar</a>
 
                     </form>
                 </div>
