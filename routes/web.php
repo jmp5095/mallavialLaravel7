@@ -43,5 +43,9 @@ Route::get('/test', function () {
 
 //inicio
 Route::resource('/role', 'RoleController')->names('role');
-Route::resource('/user', 'UserController',
-          ['except'=> ['store','create']])->names('user');
+
+Route::resource('/user', 'UserController')->names('user');
+// Route::resource('/user', 'UserController',
+//           ['except'=> ['store','create']])->names('user');
+//modificaciones
+Route::get('/registro', 'UserController@create')->name('registro');

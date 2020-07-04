@@ -16,6 +16,11 @@ class Role extends Model
   //   return $this->belongsToMany('App\User')->withTimesTamps();
   // }
 
+  public function users()
+    {
+        return $this->hasMany('App\User');
+    }
+
   public function permissions(){
     return $this->belongsToMany('App\permisos\models\Permission')->withTimesTamps();
   }

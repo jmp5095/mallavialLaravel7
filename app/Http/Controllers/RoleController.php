@@ -18,7 +18,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-      //  Gate::authorize('haveaccess','role.index');
+       Gate::authorize('haveaccess','role.index');
+
         $roles=Role::orderBy('id','Asc')->paginate(2);
 
         return view('role.index',compact('roles'));
@@ -31,8 +32,10 @@ class RoleController extends Controller
      */
     public function create()
     {
-      //  Gate::authorize('haveaccess','role.create');
+       Gate::authorize('haveaccess','role.create');
+
         $permissions=Permission::get();
+
         return view('role.create',compact('permissions'));
     }
 
@@ -44,18 +47,18 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-    //  Gate::authorize('haveaccess','role.create');
+     Gate::authorize('haveaccess','role.create');
 
       $request->validate([
         'name'        => 'required|max:50|unique:roles,name',
         'full-access' => 'required|in:yes,no'
       ]);
+
       $role=Role::create($request->all());
 
-    //  if ($request->get('permissions')) {
-        $role->permissions()->sync($request->get('permissions'));
-      //}
-        return redirect()->route('role.index')
+      $role->permissions()->sync($request->get('permissions'));
+
+      return redirect()->route('role.index')
                   ->with('status_success','Role saved successfully');
     }
 
@@ -67,7 +70,7 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-  //    Gate::authorize('haveaccess','role.show');
+     Gate::authorize('haveaccess','role.show');
       //consultar los permisos asignados
       $permission_role=[];
       foreach ($role->permissions as $permission) {
@@ -88,7 +91,7 @@ class RoleController extends Controller
      //$rol=Role::findOrFail($id);
     public function edit(Role $role)
     {
-  //    Gate::authorize('haveaccess','role.update');
+     Gate::authorize('haveaccess','role.update');
       //consultar los permisos asignados
       $permission_role=[];
       foreach ($role->permissions as $permission) {
@@ -109,7 +112,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-      // Gate::authorize('haveaccess','role.update');
+      Gate::authorize('haveaccess','role.update');
       $request->validate([
         'name'        => 'required|max:50|unique:roles,name,'.$role->id,
         // 'slug'        => 'required|max:50|unique:roles,slug,'.$role->id,

@@ -27,27 +27,31 @@ class permisosInfoSeeder extends Seeder
 
 
       //Registrar en db por medio de Eloquent (modelo)
+
+        //creamos el rol admin, pero antes aliminamos por si ya esta creado
+      $rolAdmin=Role::where('name','Admin')->first();
+      if ($rolAdmin) {
+        $rolAdmin->delete();
+      }
+
+      $rolAdmin=Role::create([
+        'name'=>'Admin',
+      //  'slug'=>'admin',
+        'description' => 'Administrator',
+        'full-access'=>'yes'
+      ]);
+
       //creamos el usuario admin, pero antes elmininamos por si ya esta registrado
       $userAdmin=User::where('email','admin@admin.com')->first();
       if ($userAdmin) {
         $userAdmin->delete();
       }
       $userAdmin=User::create([
+          'identification'    => "1118303967" ,
           'name'    => "admin" ,
           'email'   => "admin@admin.com",
-          'password' => Hash::make('admin')
-      ]);
-      $rolAdmin=Role::where('name','Admin')->first();
-      if ($rolAdmin) {
-        $rolAdmin->delete();
-      }
-
-      //creamos el rol admin
-      $rolAdmin=Role::create([
-        'name'=>'Admin',
-      //  'slug'=>'admin',
-        'description' => 'Administrator',
-        'full-access'=>'yes'
+          'password' => Hash::make('admin'),
+          'role_id'   => "1",
       ]);
       //forania de admin para relacionarlo con el rol
       //$userAdmin->roles()->sync([$rolAdmin->id]);
@@ -142,18 +146,6 @@ class permisosInfoSeeder extends Seeder
       //asignamos los permisos creados al rol admin
       //$rolAdmin->permissions()->sync($permission_all);
 
-      //creamos el usuario test pero antes eliminamos por si ya esta creado
-      $userTest=User::where('email','test@test.com')->first();
-      if ($userTest) {
-        $userTest->delete();
-      }
-
-      $userTest=User::create([
-          'name'    => "Test" ,
-          'email'   => "test@test.com",
-          'password' => Hash::make('test')
-      ]);
-
       //creamos el rol test, pero antes borramos si ya esta en la bd
       $rolTest=Role::where('name','Test')->first();
       if ($rolTest) {
@@ -166,6 +158,20 @@ class permisosInfoSeeder extends Seeder
         'description' => 'description test',
         'full-access'=>'no'
       ]);
+
+            //creamos el usuario test pero antes eliminamos por si ya esta creado
+            $userTest=User::where('email','test@test.com')->first();
+            if ($userTest) {
+              $userTest->delete();
+            }
+
+            $userTest=User::create([
+                'identification'    => "12345667" ,
+                'name'    => "Test" ,
+                'email'   => "test@test.com",
+                'password' => Hash::make('test'),
+                'role_id'   => "2",
+            ]);
       //enlazamos o sincronizamos el usuario con el rol
       //$userTest->roles()->sync([$rolTest->id]);
 

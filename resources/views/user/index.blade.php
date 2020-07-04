@@ -5,55 +5,63 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><h2>Users</h2></div>
+                <div class="card-header"><h2>Usuarios</h2></div>
                 <div class="">
                 </div>
                 <div class="card-body">
 
                   @include('custom.message')
+                @can('haveaccess','user.create')
+                  <a href="{{route('user.create')}}" class="btn btn-primary float-right" >
+                    Crear
+                  </a>
+                @endcan
+                </br></br>
 
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Role</th>
-                        <th colspan=""></th>
-                        <th colspan="3"></th>
+                        <th scope="col">Identificación</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Rol</th>
+                        @can('haveaccess','user.view')
+                          <th colspan=""></th>
+                        @endcan
+                        @can('haveaccess','user.edit')
+                          <th colspan=""></th>
+                        @endcan
+                        @can('haveaccess','user.destroy')
+                          <th colspan="3"></th>
+                        @endcan
                       </tr>
                     </thead>
                     <tbody>
                       @foreach($users as $user)
                       <tr>
-                        <td>{{$user->id}}</td>
+                        <td>{{$user->identification}}</td>
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
+                        <td>{{$user->roles['name']}}</td>
+                        @can('haveaccess','user.show')
                         <td>
-                          @isset($user->roles[0])
-                            {{$user->roles[0]->name}}
-                          @endisset
+                            <a class="btn btn-info" href="{{ route('user.show',$user->id) }}"> Ver</a>
                         </td>
-                        <td>{{$user->description}}</td>
+                        @endcan
+                        @can('haveaccess','user.edit')
                         <td>
-                          @can('view',[$user,['user.show','userown.show']])
-                            <a class="btn btn-info" href="{{ route('user.show',$user->id) }}"> Show</a>
-                          @endcan
+                            <a class="btn btn-success" href="{{ route('user.edit',$user->id) }}"> Editar</a>
                         </td>
+                        @endcan
+                        @can('haveaccess','user.destroy')
                         <td>
-                          @can('view',[$user,['user.update','userown.update']])
-                            <a class="btn btn-success" href="{{ route('user.edit',$user->id) }}"> Edit</a>
-                          @endcan
-                        </td>
-                        <td>
-                          @can('haveaccess','user.delete')
                             <form class="" action="{{ route('user.destroy',$user->id) }}" method="post">
                               @csrf
                               @method('DELETE')
-                              <button class="btn btn-danger" name="button">Delete</button>
+                              <button class="btn btn-danger" name="button">Eliminar</button>
                             </form>
-                          @endcan
                         </td>
+                        @endcan
                       </tr>
                       @endforeach
                     </tbody>

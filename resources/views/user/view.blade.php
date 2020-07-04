@@ -5,40 +5,51 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><h3>User {{$user->id}}</h3></div>
+                <div class="card-header"><h3>Editar Datos de Usuario</h3></div>
 
                 <div class="card-body">
 
                     @include('custom.message')
 
+                      @csrf
+                      @method('PUT')
                       <div class="form-group">
-                        <label for="name">Name</label>
-                        <input disabled type="text" class="form-control" id="name" name="name" placeholder="name" value="{!! old('name',$user->name )!!}">
+                        <label for="identification">Identificación</label>
+                        <input type="text" class="form-control" id="identification" name="identification" placeholder="Ingrese la identificacion"
+                        value="{!! old('identification',$user->identification )!!}" disable>
+                      </div>
+                      <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{!! old('name',$user->name )!!}" disable>
+                      </div>
+                      <div class="form-group">
+                        <label for="last_name">Apellido</label>
+                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Ingrese el apellido"
+                        value="{!! old('last_name',$user->last_name )!!}" disable>
                       </div>
                       <div class="form-group">
                         <label for="email">Email</label>
-                        <input disabled type="text" class="form-control" id="email" name="email" placeholder="email" value="{{ old('email',$user->email ) }}" >
+                        <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="{{ old('email',$user->email) }}" disable>
                       </div>
-
                       <div class="">
-                        <label for="roles">Role</label>
-                        <select class="form-control" id="roles" name="roles"  disabled>
-                          @foreach($role_user as $role)
-                            <option value="{{$role->id}}">
-                              <?php
-                                $salida="Sin rol";
-                                if (isset($user->roles[0]->name)) {
-                                  $salida=$user->roles[0]->name;
-                                }
-                              ?>
-                              {{$salida}}
-                            </option>
+                        <label for="role_id">Role</label>
+                        <select class="form-control" id="role_id" name="role_id" disabled>
+                          @foreach($roles as $role)
+                            <option value="{{$role->id}}"
+                              @isset($user->roles['name'])
+                                @if($user->roles['name']==$role->name)
+                                  selected
+                                @endif
+                              @endisset
+                            > {{$role->name}}</option>
                           @endforeach
                         </select>
                       </div>
                       <hr>
-                      <a class="btn btn-primary" href="{{ route('user.edit',$user->id)}}">Edit</a>
-                      <a class="btn btn-danger" href="{{ route('user.index') }}" >Back</a>
+
+                      <a class="btn btn-danger" href="{{route('user.index')}}">Regresar</a>
+
+
                 </div>
             </div>
         </div>

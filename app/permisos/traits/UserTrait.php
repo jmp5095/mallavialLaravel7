@@ -4,21 +4,19 @@ namespace App\permisos\traits;
 trait UserTrait{
   //inicio
   public function roles(){
-    return $this->belongsToMany('App\permisos\models\Role')->withTimesTamps();
+    return $this->hasOne('App\permisos\models\Role','id','role_id');
   }
 
   public function havePermission($permission){
-    foreach ($this->roles as $role) {
-      if ($role['full-access']=='yes') {
+      if ($this->roles['full-access']=='yes') {
         return true;
       }
 
-      foreach ($role->permissions as $perm) {
+      foreach ($this->roles->permissions as $perm) {
         if ($perm['slug']==$permission) {
           return true;
         }
       }
-    }
 
     return false;
 

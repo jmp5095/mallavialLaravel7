@@ -22,18 +22,21 @@ class UserController extends Controller
 
   public function create()
   {
+    // $this->authorize('haveaccess','user.create');
+
     // $this->authorize('create',User::class);
-    // return 'hola';
+    $roles=Role::orderBy('id')->get();
+    return view('auth.register',compact('roles'));
   }
 
 
   public function show(User $user)
   {
     $this->authorize('view',[$user,['user.show','userown.show']]);
-    //consultar los roles del usuario
-    $role_user=Role::orderBy('name')->get();
+    //consultar los roles
+    $roles=Role::get();
 
-    return view('user.view',compact('user','role_user'));
+    return view('user.view',compact('user','roles'));
 
   }
 
@@ -55,20 +58,17 @@ class UserController extends Controller
 
 
      $user->update($request->all());
-    //
-    // //if ($request->get('permissions')) {
-      $user->roles()->sync($request->get('roles'));
-    // //}
+
        return redirect()->route('user.index')
-                 ->with('status_success','Usuario updated successfully');
+                 ->with('status_success','Usuario actualizado con exito');
   }
 
   public function destroy(User $user)
   {
-      $this->authorize('haveaccess','user.delete');;
+    $this->authorize('haveaccess','user.delete');
       $user->delete();
       return redirect()->route('user.index')
-                ->with('status_success','Role Removed successfully');
+                ->with('status_success','Usuario eliminado con exito.');
   }
 
 }

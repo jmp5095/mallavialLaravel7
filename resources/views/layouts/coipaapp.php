@@ -32,14 +32,15 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                      <ul class="navbar-nav mr-auto">
-                        @can('haveaccess','role.index')
-                          <li class="nav-item" ><a class="nav-link" href="{{ route('role.index') }}">Roles  </a></li>
-                        @endcan
-                        @can('haveaccess','user.index')
-                          <li class="nav-item" ><a class="nav-link" href="{{ route('user.index') }}"> Users </a></li>
-                        @endcan
-                      </ul>
+                    <ul class="navbar-nav mr-auto">
+                      @can('haveaccess','role.index')
+                        <li class="nav-item" ><a class="nav-link" href="{{ route('role.index') }}">Roles  </a></li>
+                      @endcan
+                      @can('haveaccess','user.index')
+                        <li class="nav-item" ><a class="nav-link" href="{{ route('user.index') }}"> Users </a></li>
+                      @endcan
+                    </ul>
+
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->

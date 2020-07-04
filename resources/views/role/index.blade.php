@@ -9,9 +9,11 @@
                 <div class="">
                 </div>
                 <div class="card-body">
+                  @can('haveaccess','role.create')
                     <a href="{{route('role.create')}}" class="btn btn-primary float-right" >
                       Crear
                     </a>
+                  @endcan
                   </br></br>
 
                   @include('custom.message')
@@ -33,22 +35,25 @@
                         <td>{{$role->name}}</td>
                         <td>{{$role->description}}</td>
                         <td>{{$role['full-access']}}</td>
+                        @can('haveaccess','role.show')
                         <td>
                             <a class="btn btn-info" href="{{ route('role.show',$role->id) }}"> Ver</a>
-
                         </td>
+                        @endcan
+                        @can('haveaccess','role.edit')
                         <td>
                             <a class="btn btn-success" href="{{ route('role.edit',$role->id) }}"> Editar</a>
-
                         </td>
+                        @endcan
+                        @can('haveaccess','role.destroy')
                         <td>
-                          <form class="" action="{{ route('role.destroy',$role->id) }}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger" name="button">Eliminar</button>
-                          </form>
-
+                            <form class="" action="{{ route('role.destroy',$role->id) }}" method="post">
+                              @csrf
+                              @method('DELETE')
+                              <button class="btn btn-danger" name="button">Eliminar</button>
+                            </form>
                         </td>
+                        @endcan
                       </tr>
                       @endforeach
                     </tbody>
