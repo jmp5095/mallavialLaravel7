@@ -40,12 +40,14 @@
                             <a class="btn btn-info" href="{{ route('role.show',$role->id) }}"> Ver</a>
                         </td>
                         @endcan
-                        @can('haveaccess','role.edit')
+                        @can('haveaccess','role.update')
+
                         <td>
                             <a class="btn btn-success" href="{{ route('role.edit',$role->id) }}"> Editar</a>
                         </td>
                         @endcan
-                        @can('haveaccess','role.destroy')
+                        @can('haveaccess','role.delete')
+
                         <td>
                             <form class="" action="{{ route('role.destroy',$role->id) }}" method="post">
                               @csrf

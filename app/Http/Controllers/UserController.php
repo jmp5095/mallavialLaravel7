@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\User;
 use App\permisos\models\Role;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash;
+
 
 
 class UserController extends Controller
@@ -22,13 +24,35 @@ class UserController extends Controller
 
   public function create()
   {
-    // $this->authorize('haveaccess','user.create');
+    $this->authorize('haveaccess','user.create');
 
     // $this->authorize('create',User::class);
     $roles=Role::orderBy('id')->get();
-    return view('auth.register',compact('roles'));
+    return view('user.create',compact('roles'));
   }
 
+  public function store(Request $request)
+  {
+    $this->authorize('haveaccess','user.create');
+
+   $request->validate([
+     'identification'  => 'required|max:20|unique:users,identification',
+     'name'  => 'required|max:50',
+     'email' => 'required|max:50|unique:users,email,'
+   ]);
+
+    User::create([
+       'identification' => $request['identification'],
+       'name' => $request['name'],
+       'last_name' => $request['last_name'],
+       'email' => $request['email'],
+       'password' => Hash::make($request['identification']),
+       'role_id' => $request['role_id'],
+   ]);
+
+    return redirect()->route('user.index')
+                ->with('status_success','Usuario creado con exito');
+  }
 
   public function show(User $user)
   {
@@ -50,8 +74,10 @@ class UserController extends Controller
 
   public function update(Request $request, User $user)
   {
-    $this->authorize('view',$user);
+    $this->authorize('update',[$user,['user.update','userown.update']]);
+
     $request->validate([
+      'identification'  => 'required|max:20|unique:users,identification,'.$user->id,
       'name'  => 'required|max:50',
       'email' => 'required|max:50|unique:users,email,'.$user->id,
     ]);
@@ -69,6 +95,12 @@ class UserController extends Controller
       $user->delete();
       return redirect()->route('user.index')
                 ->with('status_success','Usuario eliminado con exito.');
+  }
+
+
+  public function miPerfil()
+  {
+      return view('user.perfil');
   }
 
 }

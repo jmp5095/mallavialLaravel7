@@ -65,7 +65,9 @@
                           </div>
                       @endforeach
                       <hr>
-                      <a href="{{ route('role.edit',$role->id) }}" class="btn btn-primary">Editar</a>
+                      @can('haveaccess','role.update')
+                        <a href="{{ route('role.edit',$role->id) }}" class="btn btn-primary">Editar</a>
+                      @endcan
                       <a href="{{ route('role.index') }}" class="btn btn-danger" >Regresar</a>
                 </div>
             </div>

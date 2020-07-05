@@ -1,6 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
+<?php $permiso=false;?>
+@can('haveaccess','user.show')
+  <?php $permiso=true;?>
+@endcan
+@can('haveaccess','userown.show')
+  <?php $permiso=true;?>
+@endcan
+
+<?php $permisoa=false;?>
+@can('haveaccess','user.update')
+  <?php $permisoa=true;?>
+@endcan
+@can('haveaccess','userown.update')
+  <?php $permisoa=true;?>
+@endcan
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -23,17 +38,17 @@
                       <tr>
                         <th scope="col">Identificación</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Correo</th>
                         <th scope="col">Rol</th>
-                        @can('haveaccess','user.view')
+                        <?php if ($permiso): ?>
+                          <th colspan=""></th>
+                        <?php endif; ?>
+                        <?php if ($permisoa): ?>
+                          <th colspan=""></th>
+                        <?php endif; ?>
+                        @can('haveaccess','user.delete')
                           <th colspan=""></th>
                         @endcan
-                        @can('haveaccess','user.edit')
-                          <th colspan=""></th>
-                        @endcan
-                        @can('haveaccess','user.destroy')
-                          <th colspan="3"></th>
-                        @endcan
+
                       </tr>
                     </thead>
                     <tbody>
@@ -41,19 +56,20 @@
                       <tr>
                         <td>{{$user->identification}}</td>
                         <td>{{$user->name}}</td>
-                        <td>{{$user->email}}</td>
                         <td>{{$user->roles['name']}}</td>
-                        @can('haveaccess','user.show')
-                        <td>
+
+
+                        <?php if ($permiso): ?>
+                          <td>
                             <a class="btn btn-info" href="{{ route('user.show',$user->id) }}"> Ver</a>
-                        </td>
-                        @endcan
-                        @can('haveaccess','user.edit')
+                          </td>
+                        <?php endif; ?>
+                        <?php if ($permisoa): ?>
                         <td>
                             <a class="btn btn-success" href="{{ route('user.edit',$user->id) }}"> Editar</a>
                         </td>
-                        @endcan
-                        @can('haveaccess','user.destroy')
+                        <?php endif; ?>
+                        @can('haveaccess','user.delete')
                         <td>
                             <form class="" action="{{ route('user.destroy',$user->id) }}" method="post">
                               @csrf

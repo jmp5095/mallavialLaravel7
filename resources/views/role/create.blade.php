@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><h3>Create Role</h3></div>
+                <div class="card-header"><h3>Crear Rol</h3></div>
 
                 <div class="card-body">
 
@@ -14,17 +14,17 @@
                     <form class="" action="{{ route('role.store') }}" method="POST">
                       @csrf
                       <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="name" value="{!! old('name' )!!}">
+                        <label for="name">Nombre</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese el nombre del rol" value="{!! old('name' )!!}">
                       </div>
 
                       <div class="form-group">
-                        <label for="description" >Description</label>
+                        <label for="description" >Descripción</label>
                         <textarea class="form-control" id="description" name="description" rows="3">{{ old('description') }}</textarea>
                       </div>
 
                       <hr>
-                      <h3>Full access</h3>
+                      <h3>Acceso completo</h3>
                       <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="full-access" id="fullaccessyes" value="yes"
                         @if (old('full-access')=='yes')
@@ -64,7 +64,8 @@
                       @endforeach
                       <hr>
 
-                      <input class="btn btn-primary" type="submit" name="" value="Save">
+                      <input class="btn btn-primary" type="submit" name="" value="Guardar">
+                      <a class="btn btn-danger" href="{{route('role.index')}}">Cancelar</a>
                     </form>
 
 

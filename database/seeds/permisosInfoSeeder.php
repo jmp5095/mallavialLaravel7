@@ -60,88 +60,85 @@ class permisosInfoSeeder extends Seeder
       $permission_test=[];
 
       $permission=Permission::create([
-        'name'=>'List role',
+        'name'=>'Listar roles',
         'slug'=>'role.index',
-        'description'=>'A user can list roles'
+        'description'=>'Puede listar los roles.'
       ]);
-      $permission_all[]=$permission->id;
 
       $permission=Permission::create([
-        'name'=>'Show role',
-        'slug'=>'role.show',
-        'description'=>'A user can see role'
-      ]);
-      $permission_all[]=$permission->id;
-
-      $permission=Permission::create([
-        'name'=>'Create role',
+        'name'=>'Crear rol',
         'slug'=>'role.create',
-        'description'=>'A user can create role'
+        'description'=>'puede crear roles'
       ]);
-      $permission_all[]=$permission->id;
 
       $permission=Permission::create([
-        'name'=>'Update role',
+        'name'=>'Ver rol',
+        'slug'=>'role.show',
+        'description'=>'Puede ver los detalles de los roles'
+      ]);
+
+
+      $permission=Permission::create([
+        'name'=>'Editar rol',
         'slug'=>'role.update',
-        'description'=>'A user can update role'
+        'description'=>'Puede editar los roles'
       ]);
-      $permission_all[]=$permission->id;
 
       $permission=Permission::create([
-        'name'=>'Delete role',
+        'name'=>'Borrar rol',
         'slug'=>'role.delete',
-        'description'=>'A user can delete role'
+        'description'=>'Puede borrar los roles'
       ]);
-      $permission_all[]=$permission->id;
 
       //creando permisos (todos los del usuario)
       $permission=Permission::create([
-        'name'=>'List user',
+        'name'=>'Listar usuarios',
         'slug'=>'user.index',
-        'description'=>'A user can list user'
+        'description'=>'Puede listar los usuarios'
       ]);
       $permission_all[]=$permission->id;
 
       $permission=Permission::create([
-        'name'=>'Show user',
-        'slug'=>'user.show',
-        'description'=>'A user can see user'
-      ]);
-      $permission_all[]=$permission->id;
-
-      $permission=Permission::create([
-        'name'=>'Create user',
+        'name'=>'Crear usuario',
         'slug'=>'user.create',
-        'description'=>'A user can create user'
+        'description'=>'puede crear usuarios'
+      ]);
+
+      $permission=Permission::create([
+        'name'=>'Ver usuario',
+        'slug'=>'user.show',
+        'description'=>'Puede ver los detalles de los usuarios'
       ]);
       $permission_all[]=$permission->id;
 
+      $permission_all[]=$permission->id;
+
       $permission=Permission::create([
-        'name'=>'Update user',
+        'name'=>'Editar usuario',
         'slug'=>'user.update',
-        'description'=>'A user can update user'
+        'description'=>'Puede editar los usuarios'
       ]);
       $permission_all[]=$permission->id;
 
       $permission=Permission::create([
-        'name'=>'Delete user',
+        'name'=>'Borrar usuario',
         'slug'=>'user.delete',
-        'description'=>'A user can delete user'
+        'description'=>'Puede borrar usuarios'
       ]);
       $permission_all[]=$permission->id;
 
       //new permission
       $permission=Permission::create([
-        'name'=>'show own user',
+        'name'=>'Ver perfi',
         'slug'=>'userown.show',
-        'description'=>'A user see own user'
+        'description'=>'Puede ver los datos de su propio usuario'
       ]);
       $permission_all[]=$permission->id;
 
       $permission=Permission::create([
-        'name'=>'Update own user',
+        'name'=>'Actualizar perfilr',
         'slug'=>'userown.update',
-        'description'=>'A user can update own user'
+        'description'=>'Puede actualizar su propio usuario'
       ]);
       //asignamos los permisos creados al rol admin
       //$rolAdmin->permissions()->sync($permission_all);
@@ -166,7 +163,7 @@ class permisosInfoSeeder extends Seeder
             }
 
             $userTest=User::create([
-                'identification'    => "12345667" ,
+                'identification'    => "1234" ,
                 'name'    => "Test" ,
                 'email'   => "test@test.com",
                 'password' => Hash::make('test'),

@@ -25,27 +25,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+//rutas login
+Auth::routes(['register' => false]);
+Route::get('sesion', 'Auth\LoginController@showLoginForm')->name('sesion');
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/test', function () {
-
-  $user=User::find(2);
-
-  // $user->roles()->sync([3]);
-
-  return $user;
-  //$user->roles()->sync([5]);
-  // return $user->havePermission('role.create');
-});
+Route::get('/inicio', 'HomeController@index')->name('inicio');
 
 
 //inicio
+//rutas del role
 Route::resource('/role', 'RoleController')->names('role');
 
+//rutas del usuario
 Route::resource('/user', 'UserController')->names('user');
-// Route::resource('/user', 'UserController',
-//           ['except'=> ['store','create']])->names('user');
+
 //modificaciones
-Route::get('/registro', 'UserController@create')->name('registro');
+Route::get('/usuario', 'UserController@index')->name('usuario');

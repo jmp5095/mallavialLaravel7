@@ -37,7 +37,7 @@
                           <li class="nav-item" ><a class="nav-link" href="{{ route('role.index') }}">Roles  </a></li>
                         @endcan
                         @can('haveaccess','user.index')
-                          <li class="nav-item" ><a class="nav-link" href="{{ route('user.index') }}"> Users </a></li>
+                          <li class="nav-item" ><a class="nav-link" href="{{ route('usuario') }}"> Usuarios </a></li>
                         @endcan
                       </ul>
                     <!-- Right Side Of Navbar -->
@@ -45,13 +45,8 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Inicio de sesión') }}</a>
+                                <a class="nav-link" href="{{ route('sesion') }}">{{ __('Inicio de sesión') }}</a>
                             </li>
-                            @if (Route::has('registro'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('registro') }}">{{ __('Registrarte') }}</a>
-                                </li>
-                            @endif
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
