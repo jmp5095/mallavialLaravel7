@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->foreignId('role_id')->nullable()->constrained('roles');
+            $table->foreignId('identification_type_id')->nullable()->constrained('identifications_types');
             $table->rememberToken();
             $table->timestamps();
         });

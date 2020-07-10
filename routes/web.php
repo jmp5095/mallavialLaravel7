@@ -28,7 +28,6 @@ Route::get('/', function () {
 //rutas login
 Auth::routes(['register' => false]);
 Route::get('sesion', 'Auth\LoginController@showLoginForm')->name('sesion');
-
 Route::get('/inicio', 'HomeController@index')->name('inicio');
 
 
@@ -38,6 +37,6 @@ Route::resource('/role', 'RoleController')->names('role');
 
 //rutas del usuario
 Route::resource('/user', 'UserController')->names('user');
-
-//modificaciones
 Route::get('/usuario', 'UserController@index')->name('usuario');
+//rutas tipos de identificacion
+Route::resource('/tipoDeIdentificacion', 'IdentificationTypeController')->names('tipoDeIdentificacion');

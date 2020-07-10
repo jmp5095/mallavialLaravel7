@@ -61,12 +61,12 @@
 
                         <?php if ($permiso): ?>
                           <td>
-                            <a class="btn btn-info" href="{{ route('user.show',$user->id) }}"> Ver</a>
+                            <a class="btn btn-info" href="{{ route('user.show',$user->id) }}">Ver</a>
                           </td>
                         <?php endif; ?>
                         <?php if ($permisoa): ?>
                         <td>
-                            <a class="btn btn-success" href="{{ route('user.edit',$user->id) }}"> Editar</a>
+                            <a class="btn btn-success" href="{{ route('user.edit',$user->id) }}">Editar</a>
                         </td>
                         <?php endif; ?>
                         @can('haveaccess','user.delete')

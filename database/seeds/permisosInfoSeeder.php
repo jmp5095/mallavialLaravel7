@@ -28,7 +28,7 @@ class permisosInfoSeeder extends Seeder
 
       //Registrar en db por medio de Eloquent (modelo)
 
-        //creamos el rol admin, pero antes aliminamos por si ya esta creado
+      //creamos el rol admin, pero antes aliminamos por si ya esta creado
       $rolAdmin=Role::where('name','Admin')->first();
       if ($rolAdmin) {
         $rolAdmin->delete();
@@ -52,6 +52,7 @@ class permisosInfoSeeder extends Seeder
           'email'   => "admin@admin.com",
           'password' => Hash::make('admin'),
           'role_id'   => "1",
+          'identification_type_id' => "1",
       ]);
       //forania de admin para relacionarlo con el rol
       //$userAdmin->roles()->sync([$rolAdmin->id]);
@@ -168,6 +169,7 @@ class permisosInfoSeeder extends Seeder
                 'email'   => "test@test.com",
                 'password' => Hash::make('test'),
                 'role_id'   => "2",
+                'identification_type_id' => "1",
             ]);
       //enlazamos o sincronizamos el usuario con el rol
       //$userTest->roles()->sync([$rolTest->id]);

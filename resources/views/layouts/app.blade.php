@@ -26,6 +26,8 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+                <?php
+                 ?>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -39,6 +41,7 @@
                         @can('haveaccess','user.index')
                           <li class="nav-item" ><a class="nav-link" href="{{ route('usuario') }}"> Usuarios </a></li>
                         @endcan
+                          <li class="nav-item" ><a class="nav-link" href="{{ route('tipoDeIdentificacion.index') }}"> Tipo de identificación </a></li>
                       </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -48,21 +51,31 @@
                                 <a class="nav-link" href="{{ route('sesion') }}">{{ __('Inicio de sesión') }}</a>
                             </li>
                         @else
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item" ><a class="nav-link" href="{{ route('inicio') }}">Inicio</a></li>
+                            </ul>
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Cerrar sesión') }}
+                                    <a class="dropdown-item" href="{{ route('user.show',auth()->user()->id) }}">
+                                        perfil
                                     </a>
+
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Cerrar sesión') }}
+                                  </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+                                </div>
+
                                 </div>
                             </li>
                         @endguest

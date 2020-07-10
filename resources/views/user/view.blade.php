@@ -5,7 +5,14 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><h3>Editar Datos de Usuario</h3></div>
+                <div class="card-header">
+                  <?php if ($user->id == auth()->user()->id): ?>
+                    <h3>Mis datos</h3>
+                  <?php else: ?>
+                    <h3>Datos de usuario con identificación {{$user->id}}</h3>
+                  <?php endif; ?>
+
+                </div>
 
                 <div class="card-body">
 
@@ -14,9 +21,34 @@
                       @csrf
                       @method('PUT')
                       <div class="form-group">
-                        <label for="identification">Identificación</label>
-                        <input type="text" class="form-control" id="identification" name="identification" placeholder="Ingrese la identificacion"
-                        value="{!! old('identification',$user->identification )!!}" disabled>
+                        <table>
+                          <tbody>
+                            <tr>
+                              <td>
+                                <label for="identification">Identificación</label>
+                                <input style="width: 32.7em;" type="text" class="form-control" id="identification" name="identification" placeholder="Ingrese la identificacion"
+                                value="{!! old('identification',$user->identification )!!}" disabled>
+                              </td>
+                              <td >
+                                <label for="identification">Tipo de identificación</label>
+                                <select align="center" style="width: 15em;"  class="form-control" id="identification_type_id" name="identification_type_id" disabled>
+                                  @foreach($identificaciones as $identificacion)
+                                    <option value="{{$identificacion->id}}"
+                                      @isset($user->identification_type->id )
+                                        @if($identificacion->id == $user->identification_type->id)
+                                          selected
+                                        @endif
+                                      @endisset
+                                    > {{$identificacion->name}}</option>
+                                  @endforeach
+                                </select>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+
+
                       </div>
                       <div class="form-group">
                         <label for="name">Nombre</label>
@@ -45,10 +77,23 @@
                           @endforeach
                         </select>
                       </div>
+                      <br>
+
                       <hr>
+                      
+                      <?php
+                      $permitido=false;
+                       ?>
                       @can('haveaccess','user.update')
-                        <a class="btn btn-primary" href="{{route('user.edit',$user->id)}}">Editar</a>
+                        <?php $permitido=true ?>
                       @endcan
+                      @can('haveaccess','userown.update')
+                        <?php $permitido=true ?>
+                      @endcan
+                      <?php if ($permitido): ?>
+                        <a class="btn btn-primary" href="{{route('user.edit',$user->id)}}">Editar</a>
+                      <?php endif; ?>
+
                       <a class="btn btn-danger" href="{{route('user.index')}}">Regresar</a>
 
 

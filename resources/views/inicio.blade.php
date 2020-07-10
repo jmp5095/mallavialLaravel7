@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Perfil</div>
+                <div class="card-header"><h3>Lista de permisos que posee en el sistema</h3></div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -13,8 +13,24 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in!
+                    @include('custom.message')
+                    
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Nombre</th>
+                          <th>Descripción</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach($permisos as $permiso)
+                        <tr>
+                          <td>{{$permiso->name}}</td>
+                          <td>{{$permiso->description}}</td>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
                 </div>
             </div>
         </div>

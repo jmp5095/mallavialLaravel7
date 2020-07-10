@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 //inicio
 use App\User;
 use App\permisos\models\Role;
+use App\permisos\models\IdentificationsType;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 
@@ -17,7 +18,7 @@ class UserController extends Controller
   public function index()
   {
       $this->authorize('haveaccess','user.index');
-      $users=User::orderBy('id','Asc')->paginate(2);
+      $users=User::orderBy('id','Asc')->paginate(5);
 
       return view('user.index',compact('users'));
   }
@@ -28,7 +29,8 @@ class UserController extends Controller
 
     // $this->authorize('create',User::class);
     $roles=Role::orderBy('id')->get();
-    return view('user.create',compact('roles'));
+    $identificaciones=IdentificationsType::orderBy('id')->get();
+    return view('user.create',compact('roles','identificaciones'));
   }
 
   public function store(Request $request)
@@ -48,6 +50,7 @@ class UserController extends Controller
        'email' => $request['email'],
        'password' => Hash::make($request['identification']),
        'role_id' => $request['role_id'],
+       'identification_type_id' => $request['identification_type_id'],
    ]);
 
     return redirect()->route('user.index')
@@ -56,19 +59,23 @@ class UserController extends Controller
 
   public function show(User $user)
   {
+
+
     $this->authorize('view',[$user,['user.show','userown.show']]);
     //consultar los roles
+    $identificaciones=IdentificationsType::get();
     $roles=Role::get();
 
-    return view('user.view',compact('user','roles'));
+    return view('user.view',compact('user','roles','identificaciones'));
 
   }
 
   public function edit(User $user)
   {
     $this->authorize('update',[$user,['user.update','userown.update']]);
+    $identificaciones=IdentificationsType::get();
     $roles=Role::get();
-    return view('user.edit',compact('user','roles'));
+    return view('user.edit',compact('user','roles','identificaciones'));
 
   }
 
@@ -82,11 +89,14 @@ class UserController extends Controller
       'email' => 'required|max:50|unique:users,email,'.$user->id,
     ]);
 
-
      $user->update($request->all());
-
+     if (auth()->user()->id==$user->id) {
+       return redirect()->route('inicio')
+                 ->with('status_success','Datos de perfil modificados con exito.');
+     }else{
        return redirect()->route('user.index')
-                 ->with('status_success','Usuario actualizado con exito');
+       ->with('status_success','Usuario actualizado con exito');
+     }
   }
 
   public function destroy(User $user)
@@ -98,9 +108,6 @@ class UserController extends Controller
   }
 
 
-  public function miPerfil()
-  {
-      return view('user.perfil');
-  }
+
 
 }

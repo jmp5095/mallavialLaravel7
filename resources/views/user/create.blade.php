@@ -13,11 +13,25 @@
 
                     <form class="" action="{{ route('user.store') }}" method="POST">
                       @csrf
-                      <div class="form-group">
-                        <label for="identification">Identificación</label>
-                        <input type="text" class="form-control" id="identification" name="identification" placeholder="Ingrese la identificacion"
-                        value="{!! old('identification')!!}">
-                      </div>
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <label for="identification">Identificación</label>
+                              <input style="width: 32.7em;" type="text" class="form-control" id="identification" name="identification" placeholder="Ingrese la identificacion"
+                              value="{!! old('identification') !!}" >
+                            </td>
+                            <td >
+                              <label for="identification">Tipo de identificación</label>
+                              <select align="center" style="width: 15em;"  class="form-control" id="identification_type_id" name="identification_type_id" >
+                                @foreach($identificaciones as $identificacion)
+                                  <option value="{{$identificacion->id}}"> {{$identificacion->name}}</option>
+                                @endforeach
+                              </select>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                       <div class="form-group">
                         <label for="name">Nombre</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese el nombre" value="{!! old('name')!!}">

@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-
+//inicio
+use App\permisos\models\Permission;
+use App\User;
 class HomeController extends Controller
 {
     /**
@@ -21,9 +22,17 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        return view('inicio');
+//inicio
+    public function index(){
+      $user=auth()->user();
+      $accesoCompleto=$user->roles['full-access'];
+
+      if ($accesoCompleto=='yes') {
+        $permisos=Permission::orderBy('id')->get();
+      }else{
+        $permisos=$user->roles->permissions;
+      }
+      return view('inicio',compact('permisos'));
     }
 
 
